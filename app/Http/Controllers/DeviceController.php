@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DeviceStatusUpdated;
 use App\Models\Device;
 use App\Models\Sector;
-use App\Http\Requests\Device\Request;
+use App\Http\Requests\Device\Request as DeviceRequest;;
+
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,7 +50,7 @@ class DeviceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): \Illuminate\Http\JsonResponse
+    public function store(DeviceRequest $request): \Illuminate\Http\JsonResponse
     {
         // Terapkan try catch
         try {
@@ -92,7 +95,7 @@ class DeviceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Device $device): \Illuminate\Http\JsonResponse
+    public function update(DeviceRequest $request, Device $device): \Illuminate\Http\JsonResponse
     {
         // Terapkan try catch
         try {
@@ -134,5 +137,30 @@ class DeviceController extends Controller
                 'message' => 'Kesalahan hapus perangkat'
             ], Response::class::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * Update hanya status perangkat.
+     */
+    public function updateStatus(Request $request, Device $device): \Illuminate\Http\JsonResponse
+    {
+        $request->validate([
+            'status' => 'required|boolean',
+        ]);
+
+        // Cek ownership (optional)
+        // abort_if($device->sector->user_id !== Auth::id(), 403);
+
+        $device->status = $request->input('status');
+        $device->save();
+
+        // Broadcast event
+        event(new DeviceStatusUpdated($device));
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Status updated',
+            'data'    => ['id' => $device->id, 'status' => $device->status],
+        ]);
     }
 }
