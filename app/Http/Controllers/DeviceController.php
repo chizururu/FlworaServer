@@ -117,7 +117,7 @@ class DeviceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Device $device)
+    public function destroy(Device $device): \Illuminate\Http\JsonResponse
     {
         // Terapkan try catch
         try {

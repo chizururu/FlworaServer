@@ -24,9 +24,12 @@ abstract class BaseRequest extends FormRequest
     {
         $payload = [
             'status' => false,
-            'message' => 'Kesalahan validasi'
+            'message' => 'Kesalahan validasi',
+            'errors' => $validator->errors(),
         ];
 
-        throw new HttpResponseException(response()->json($payload), Response::class::HTTP_UNPROCESSABLE_ENTITY);
+        throw new HttpResponseException(
+            response()->json($payload, Response::class::HTTP_UNPROCESSABLE_ENTITY)
+        );
     }
 }

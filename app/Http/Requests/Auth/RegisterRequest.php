@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Device;
+namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\BaseRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class Request extends BaseRequest
+class RegisterRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,9 +15,10 @@ class Request extends BaseRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|integer|exists:devices,id',
             'name' => 'required',
-            'sector_id' => 'required|integer|exists:sectors,id'
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|max:12',
+            'confirm_password' => 'required|same:password'
         ];
     }
 
@@ -28,7 +30,9 @@ class Request extends BaseRequest
         return [
             'required' => ':Attribute wajib diisi',
             'unique' => ':Attribute sudah dibuat sebelumnya',
-            'sector_id.exists' => ':Attribute tidak ditemukan'
+            'email' => ':Attribute tidak valid',
+            'same' => ':Attribute harus sama',
+            'max' => ':Attribute maksimal 12 karakter',
         ];
     }
 }

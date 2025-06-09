@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->boolean('status')->default(false);
+            $table->boolean('is_ai_on')->default(false);
             $table->timestamps();
         });
     }

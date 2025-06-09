@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Sector extends Model
+class Sector extends Models
 {
     // Konfigurasi database dengan protected agar nama table dan field harus sama dengan migrations
     protected $table = 'sectors';
