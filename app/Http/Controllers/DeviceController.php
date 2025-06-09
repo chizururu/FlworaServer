@@ -142,25 +142,28 @@ class DeviceController extends Controller
     /**
      * Update hanya status perangkat.
      */
-    public function updateStatus(Request $request, Device $device): \Illuminate\Http\JsonResponse
+    public function updateStatus(Request $request, $id): \Illuminate\Http\JsonResponse
     {
-        $request->validate([
+        // Validasi: wajib dan harus boolean
+        $data = $request->validate([
             'status' => 'required|boolean',
         ]);
 
-        // Cek ownership (optional)
-        // abort_if($device->sector->user_id !== Auth::id(), 403);
-
-        $device->status = $request->input('status');
+        // Simpan perubahan
+        $device = Device::query()->find($id);
+        $device->status = $data['status'];
         $device->save();
 
         // Broadcast event
         event(new DeviceStatusUpdated($device));
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Status updated',
-            'data'    => ['id' => $device->id, 'status' => $device->status],
-        ]);
+            'data'    => [
+                'id'     => $device->id,
+                'status' => $device->status,
+            ],
+        ], 200);
     }
 }

@@ -14,9 +14,4 @@ use App\Http\Controllers\Auth\UserController;
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/register', [UserController::class, 'store']);
 
-
-Route::middleware('auth:sanctum')->group(function () {
-
-});
-
-Route::patch('device/{device}/status', [DeviceController::class, 'updateStatus']);
+Route::patch('/device/{id}/status', [DeviceController::class, 'updateStatus']);
