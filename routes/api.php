@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\DeviceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\SectorController;
+use App\Http\Controllers\DeviceController;
 
 //Route::get('/user', function (Request $request) {
 //    return $request->user();
@@ -13,5 +14,3 @@ use App\Http\Controllers\Auth\UserController;
  * User Controller -> Login and Register */
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/register', [UserController::class, 'store']);
-
-Route::patch('/device/{id}/status', [DeviceController::class, 'updateStatus']);

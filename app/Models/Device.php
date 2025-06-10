@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Device extends Models
 {
@@ -21,5 +22,21 @@ class Device extends Models
     public function sector(): BelongsTo
     {
         return $this->belongsTo(Sector::class, 'sector_id');
+    }
+
+    /*
+     * Relation: SensorMeasurementData (M) to Device (1)
+     * */
+    public function sensorMeasurementData(): BelongsTo
+    {
+        return $this->belongsTo(SensorMeasurementData::class, 'device_id');
+    }
+
+    /*
+     * Relation: History Irrigation (M) to Device (1)
+     * */
+    public function historyIrrigation(): BelongsTo
+    {
+        return $this->belongsTo(HistoryIrrigation::class, 'device_id');
     }
 }
