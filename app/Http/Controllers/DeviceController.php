@@ -23,8 +23,16 @@ class DeviceController extends Controller
             // 1. Fetch only the sector id in the table sector
             $sector = Sector::where('user_id', Auth::id())->pluck('id');
 
+            /*return response()->json([
+                'sector' => $sector,
+            ]);*/
+
             // 2. Fetch device in those sector id
-            $device = Device::with('sectors')->whereIn('sector_id', $sector)->get();
+            $device = Device::query()->whereIn('sector_id', $sector)->get();
+
+            return response()->json([
+                'device' => $device,
+            ]);
 
             return response()->json([
                 'status' => true,
@@ -34,7 +42,7 @@ class DeviceController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Kesalahan ambil data perangkat',
+                'message' => 'Kesalahan ambil data perangkat'. $e,
             ], Response::class::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -59,6 +67,7 @@ class DeviceController extends Controller
 
             // 2. Save data to device table
             $device = Device::query()->create([
+                'id' => $data['id'],
                 'name' => $data['name'],
                 'sector_id' => $data['sector_id']
             ]);
@@ -71,7 +80,7 @@ class DeviceController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => false,
-                '' => 'Kesalahan tambah perangkat'
+                '' => 'Kesalahan tambah perangkat' .$e
             ], Response::class::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

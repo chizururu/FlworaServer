@@ -46,13 +46,14 @@ class SensorMeasurementDataController extends Controller
         try {
             // 1. Validation
             $data = $request->validate([
-                'soil_moisture' => 'required|float',
-                'temperature' => 'required|float',
-                'humidity' => 'required|float',
+                'device_id' => 'required',
+                'soil_moisture' => 'required',
+                'temperature' => 'required',
+                'humidity' => 'required',
             ]);
 
             $sensor = SensorMeasurementData::query()->create([
-                'device_id' => $device->id,
+                'device_id' => $data['device_id'],
                 'soil_moisture' => $data['soil_moisture'],
                 'temperature' => $data['temperature'],
                 'humidity' => $data['humidity']
@@ -67,7 +68,7 @@ class SensorMeasurementDataController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => true,
-                'message' => 'Kesalahan tambah data sensor',
+                'message' => 'Kesalahan tambah data sensor'. $e,
             ], Response::class::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

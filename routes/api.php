@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\SensorMeasurementDataController;
 
 /*
  * User Controller -> Login and Register */
@@ -20,3 +21,5 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 //
+// routes/api.php
+Route::post('/sensor-data', [SensorMeasurementDataController::class, 'store']);

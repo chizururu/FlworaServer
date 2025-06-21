@@ -14,7 +14,7 @@ class Request extends BaseRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|integer|exists:devices,id',
+            'id' => 'required',
             'name' => 'required',
             'sector_id' => 'required|integer|exists:sectors,id'
         ];
