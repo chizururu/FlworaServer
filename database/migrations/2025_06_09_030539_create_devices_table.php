@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('status')->default(false);
             $table->boolean('is_ai_on')->default(false);
+            $table->boolean('flush')->default(false);
             $table->timestamps();
         });
     }

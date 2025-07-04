@@ -19,7 +19,3 @@ Route::middleware('auth:sanctum')->group(function () {
     // Devices
     Route::resource('/device', DeviceController::class);
 });
-
-//
-// routes/api.php
-Route::post('/sensor-data', [SensorMeasurementDataController::class, 'store']);
