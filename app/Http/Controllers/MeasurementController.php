@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sector;
+use App\Models\Measurement;
 use Illuminate\Http\Request;
 
-class SectorController extends Controller
+class MeasurementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class SectorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sector $sector)
+    public function show(Measurement $measurement)
     {
         //
     }
@@ -42,7 +42,7 @@ class SectorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Sector $sector)
+    public function edit(Measurement $measurement)
     {
         //
     }
@@ -50,7 +50,7 @@ class SectorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Sector $sector)
+    public function update(Request $request, Measurement $measurement)
     {
         //
     }
@@ -58,7 +58,7 @@ class SectorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sector $sector)
+    public function destroy(Measurement $measurement)
     {
         //
     }

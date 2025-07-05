@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sector;
 use Illuminate\Http\Request;
 
-class SectorController extends Controller
+class AuthController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +23,7 @@ class SectorController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created account in storage (register).
      */
     public function store(Request $request)
     {
@@ -32,9 +31,17 @@ class SectorController extends Controller
     }
 
     /**
+     * Login to a an account after created resource in storage.
+     */
+    public function login(Request $request)
+    {
+        //
+    }
+
+    /**
      * Display the specified resource.
      */
-    public function show(Sector $sector)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +49,7 @@ class SectorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Sector $sector)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +57,7 @@ class SectorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Sector $sector)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +65,7 @@ class SectorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sector $sector)
+    public function destroy(string $id)
     {
         //
     }
