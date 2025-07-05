@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\AuthRequest;
+namespace App\Http\Requests;
 
-use App\Http\Requests\BaseRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
-class RegisterRequest extends BaseRequest
+class SectorRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,10 +17,7 @@ class RegisterRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|max:12',
-            'confirm_password' => 'required|max:12|same:password'
+            'name' => ['required', Rule::unique('sectors', 'name')->where(fn($q) => $q->where('user_id', Auth::id()))]
         ];
     }
 
@@ -32,10 +30,7 @@ class RegisterRequest extends BaseRequest
     {
         return [
             'required' => ':Attribute wajib diisi',
-            'unique' => ':Attribute sudah dibuat sebelumnya',
-            'email' => ':Attribute tidak valid',
-            'same' => ':Attribute harus sama',
-            'max' => ':Attribute maksimal 12 karakter',
+            'unique' => ':Attribute sudah dibuat sebelumnya'
         ];
     }
 }
